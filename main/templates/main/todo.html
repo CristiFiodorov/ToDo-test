@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% comment %} <h1>{{ls.name}}</h1>
+    <form method="post" action="#">
+    {% csrf_token %}
+        <ul>
+            {% for item in ls.item_set.all %}
+                {% if item.complete == True %}
+                    <li><input type="checkbox", value="clicked", name="c{{item.id}}" checked>{{item.text}}</li>
+                {% else %}
+                    <li><input type="checkbox", value="clicked", name="c{{item.id}}">{{item.text}}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        <button type="submit", name="newItem", value="newItem">Add Item</button>	
+        <input type="text", name="new">
+        <button type="submit", name="save", value="save">Save</button>
+    </form> {% endcomment %}
+
+    <h2>{{ls.name}}</h2>
+	<form method="post", action="#">
+		{% csrf_token %}
+
+		{% for item in ls.item_set.all%}
+			<div class="input-group mb-3">
+	  			<div class="input-group-prepend">
+	    			<div class="input-group-text">
+	      				<input type="checkbox" name="c{{item.id}}" value="clicked" aria-label="Checkbox for following text input" {% if item.complete %} checked {% endif %}>
+	    			</div>
+	  			</div>
+	  			<input type="text" name="text{{item.id}}" value="{{item.text}}" class="form-control" aria-label="Text input with checkbox">
+			</div>
+		{% endfor %}
+
+		<div class="input-group mb-3">
+	  		<div class="input-group-prepend">
+	  		<button name="add", value="add", type="submit", class="btn btn-success">Add New</button>
+	  		</div>
+	  		<input type="text" name="new" value="" class="form-control">
+	  		
+		</div>
+		<br>
+		<button name="save", value="save", type="submit", class="btn btn-success">Save</button>
+	</form>
+{% endblock %}

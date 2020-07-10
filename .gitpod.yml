@@ -4,7 +4,6 @@ ports:
 tasks:
 - init: >
     python3 -m pip install -r requirements.txt &&
-    cd mysite &&
     python3 manage.py migrate
   command: >
     echo "from mysite.settings import *" > mysite/local_settings.py &&
